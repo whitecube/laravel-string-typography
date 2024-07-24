@@ -1,6 +1,7 @@
 <?php
 
 use Whitecube\Strings\ServiceProvider;
+use Whitecube\Strings\Typography;
 
 it('can load ServiceProvider correctly', function() {
     expect(app()->providerIsLoaded(ServiceProvider::class))->toBeTrue();
@@ -39,4 +40,18 @@ it('can replace horizontal ellipsises with according HTML entity', function() {
     foreach ($cases as $value) {
         expect((string) str($value)->typography())->toBe($expectation);
     }
+});
+
+it('can register and remove custom typographic rules', function() {
+    Typography::rule(
+        key: 'a-to-b',
+        regex: '/a/',
+        callback: fn(array $matches) => 'b',
+    );
+
+    expect((string) str('...Banana !')->typography())->toBe('&hellip;Bbnbnb&nbsp;!');
+
+    Typography::remove('a-to-b');
+
+    expect((string) str('...Banana !')->typography())->toBe('&hellip;Banana&nbsp;!');
 });
