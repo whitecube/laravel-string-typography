@@ -11,7 +11,7 @@
 |
 */
 
-uses(\Whitecube\Strings\Tests\TestCase::class)->in('Unit');
+uses(\Whitecube\Strings\Tests\TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
