@@ -49,9 +49,55 @@ it('can register and remove custom typographic rules', function() {
         callback: fn(array $matches) => 'b',
     );
 
-    expect((string) str('...Banana !')->typography())->toBe('&hellip;Bbnbnb&nbsp;!');
+    expect((string) str('...Banana !')->typography())
+        ->toBe('&hellip;Bbnbnb&nbsp;!');
 
     Typography::remove('a-to-b');
 
-    expect((string) str('...Banana !')->typography())->toBe('&hellip;Banana&nbsp;!');
+    expect((string) str('...Banana !')->typography())
+        ->toBe('&hellip;Banana&nbsp;!');
+});
+
+it('can execute one of the declared rules', function() {
+    expect((string) str('...Banana !')->typography(only: 'hellip'))
+        ->toBe('&hellip;Banana !');
+});
+
+it('can execute some of the declared rules', function() {
+    Typography::rule(
+        key: 'a-to-b',
+        regex: '/a/',
+        callback: fn(array $matches) => 'b',
+    );
+
+    expect((string) str('...Banana !')->typography(only: ['hellip','unbreakable-punctuation']))
+        ->toBe('&hellip;Banana&nbsp;!');
+
+    Typography::remove('a-to-b');
+});
+
+it('can execute all of the declared rules except one', function() {
+    Typography::rule(
+        key: 'a-to-b',
+        regex: '/a/',
+        callback: fn(array $matches) => 'b',
+    );
+
+    expect((string) str('...Banana !')->typography(except: 'hellip'))
+        ->toBe('...Bbnbnb&nbsp;!');
+    
+    Typography::remove('a-to-b');
+});
+
+it('can execute all of the declared rules except some', function() {
+    Typography::rule(
+        key: 'a-to-b',
+        regex: '/a/',
+        callback: fn(array $matches) => 'b',
+    );
+
+    expect((string) str('...Banana !')->typography(except: ['hellip','unbreakable-punctuation']))
+        ->toBe('...Bbnbnb !');
+    
+    Typography::remove('a-to-b');
 });

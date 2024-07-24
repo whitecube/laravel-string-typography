@@ -30,11 +30,11 @@ class ServiceProvider extends Provider
      */
     public function boot()
     {
-        Str::macro('typography', function (string $value) {
-            return (new Typography($value))->handle();
+        Str::macro('typography', function (string $value, null|string|array $only = null, null|string|array $except = null) {
+            return (new Typography($value))->handle(only: $only, except: $except);
         });
-        Stringable::macro('typography', function () {
-            return new static(Str::typography($this->value));
+        Stringable::macro('typography', function (null|string|array $only = null, null|string|array $except = null) {
+            return new static(Str::typography($this->value, $only, $except));
         });
     }
 }

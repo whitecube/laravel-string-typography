@@ -35,11 +35,20 @@ class Typography
     }
 
     /**
-     * Remove a typographic rule handler.
+     * Return the requested handlers.
      */
-    static protected function getHandlers(): array
+    static protected function getHandlers(null|string|array $only = null, null|string|array $except = null): array
     {
-        return array_reduce(static::$handlers, function($all, $handler) {
+        $only = ($only ? (is_array($only) ? $only : [$only]) : null);
+        $except = ($except ? (is_array($except) ? $except : [$except]) : null);
+
+        $handlers = match (true) {
+            !is_null($only) => array_filter(static::$handlers, fn($key) => in_array($key, $only), ARRAY_FILTER_USE_KEY),
+            !is_null($except) => array_filter(static::$handlers, fn($key) => !in_array($key, $except), ARRAY_FILTER_USE_KEY),
+            default => static::$handlers,
+        };
+
+        return array_reduce($handlers, function($all, $handler) {
             [$regex, $callback] = $handler;
             $all[$regex] = $callback;
             return $all;
@@ -57,10 +66,10 @@ class Typography
     /**
      * Run the value transformations.
      */
-    public function handle(): string
+    public function handle(null|string|array $only = null, null|string|array $except = null): string
     {
         return preg_replace_callback_array(
-            static::getHandlers(),
+            static::getHandlers(only: $only, except: $except),
             $this->value
         );
     }
