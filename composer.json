@@ -1,0 +1,52 @@
+{
+    "name": "whitecube/laravel-string-typography",
+    "description": "A set of simple Str & Stringable macros helping to implement typographic rules",
+    "keywords": [
+        "whitecube",
+        "laravel",
+        "typography",
+        "nbsp",
+        "non-breakable space",
+        "punctuation",
+        "blade"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Whitecube\\Strings\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Whitecube\\Strings\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Toon Van den Bos",
+            "email": "toon@whitecube.be"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^9|^10|^11"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.2",
+        "pestphp/pest": "^2.34"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Whitecube\\Strings\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
