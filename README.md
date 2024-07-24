@@ -2,9 +2,9 @@
 
 Rendering strings provided by users can result in unexpected typographic results. For instance, in most latin languages (such as french) it is recommended to add a non-breakable space in front of, amongst others, exclamation or question marks (`!` and `?`). Most users will probably just type a regular space, which could result in an unwanted line break just before these punctuation marks.
 
-This simple package provides a `typography` macro to Laravel's `Str` facade and `Stringable` instances (created using `Str::of()` or `str()`) that will take care of these typographic details.
+This simple package provides a `typography` macro for Laravel's `Str` facade and `Stringable` instances (created using `Str::of()` or `str()`) that will take care of these typographic details.
 
-It is also possible to enhance the package by adding your own typographic rules.
+It is also possible to enhance this package by adding your own typographic rules.
 
 ```php
 $content = 'Mama mia !';
@@ -23,25 +23,29 @@ composer require whitecube/laravel-string-typography
 
 ## Getting started
 
-The package's ServiceProvider and therefore its `typography` macro will automatically be registered upon installation so you can start using it right away:
+The package's ServiceProvider and therefore its `typography` macro will automatically be registered upon installation. You can start using it right away:
 
 ```blade
-<!-- Using the Str facade -->
+{{-- Using the "Str" facade --}}
 <h1>{!! Str::typography($title) !!}</h1>
-<!-- Using the str() helper method -->
+
+{{-- Using the "str()" helper --}}
 <p>{!! str($paragraph)->typography() !!}</p>
 ```
 
-Using `Stringable` instances, you can chain the `typography` method with other helpers:
+Using `Stringable` instances, you can chain `typography` with other helper methods:
 
 ```blade
 <div>{!! str($text)->markdown()->typography() !!}</div>
 ```
 
+> [!NOTE]  
+> Since the transformed strings contain HTML entities (such as `&nbsp;`), don't forget to render them using `{!! !!}` instead of `{{ }}` in your Blade templates.
+
 ## Default typographic rules
 
 | Key                       | Usage                                               | Description                                                                                   |
-| ------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+|:------------------------- |:--------------------------------------------------- |:--------------------------------------------------------------------------------------------- |
 | `unbreakable-punctuation` | Remove unwanted line breaks in front of punctuation | Replaces ` !`, ` ?`, ` :`, ` ;` with `&nbsp;!`, `&nbsp;?`, `&nbsp;:`, `&nbsp;;` respectively. |
 | `hellip`                  | Use the correct "horizontal ellipsis" HTML entity   | Replaces `&#8230;`, `&#x2026;`, `...`, `…` with `&hellip;`.                                   |
 
