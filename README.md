@@ -1,6 +1,6 @@
 # Typography Rules for Laravel
 
-Rendering strings provided by users can result in unexpected typographic results. For instance, in most latin languages (such as french) it is recommended to add a non-breakable space in front of, amongst others, exclamation or question marks (`!` and `?`). Most users will probably just type a regular space, which could result in an unwanted line break just before these punctuation marks.
+Rendering strings provided by users can result in unexpected typographic results. For instance, in most latin languages (such as french) it is recommended to add a non-breaking space in front of, amongst others, exclamation or question marks (`!` and `?`). Most users will probably just type a regular space, which could result in an unwanted line break just before these punctuation marks.
 
 This simple package provides a `typography` macro for Laravel's `Str` facade and `Stringable` instances (created using `Str::of()` or `str()`) that will take care of these typographic details.
 
@@ -46,7 +46,7 @@ Using `Stringable` instances, you can chain `typography` with other helper metho
 
 | Key                       | Usage                                               | Description                                                                                   |
 |:------------------------- |:--------------------------------------------------- |:--------------------------------------------------------------------------------------------- |
-| `unbreakable-punctuation` | Remove unwanted line breaks in front of punctuation | Replaces ` !`, ` ?`, ` :`, ` ;` with `&nbsp;!`, `&nbsp;?`, `&nbsp;:`, `&nbsp;;` respectively. |
+| `non-breaking-punctuation` | Remove unwanted line breaks in front of punctuation | Replaces ` !`, ` ?`, ` :`, ` ;` with `&nbsp;!`, `&nbsp;?`, `&nbsp;:`, `&nbsp;;` respectively. |
 | `hellip`                  | Use the correct "horizontal ellipsis" HTML entity   | Replaces `&#8230;`, `&#x2026;`, `...`, `…` with `&hellip;`.                                   |
 
 ## Registering & removing typographic rules
@@ -75,14 +75,14 @@ Call a single or a few specific rules:
 
 ```blade
 <div>{!! str($text)->typography(only: 'hellip') !!}</div>
-<div>{!! str($text)->typography(only: ['hellip', 'unbreakable-punctuation']) !!}</div>
+<div>{!! str($text)->typography(only: ['hellip', 'non-breaking-punctuation']) !!}</div>
 ```
 
 Call all rules except a single or a few specific unwanted rules:
 
 ```blade
 <div>{!! str($text)->typography(except: 'hellip') !!}</div>
-<div>{!! str($text)->typography(except: ['hellip', 'unbreakable-punctuation']) !!}</div>
+<div>{!! str($text)->typography(except: ['hellip', 'non-breaking-punctuation']) !!}</div>
 ```
 
 ---

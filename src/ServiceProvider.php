@@ -14,7 +14,7 @@ class ServiceProvider extends Provider
     public function register()
     {
         Typography::rule(
-            key: 'unbreakable-punctuation',
+            key: 'non-breaking-punctuation',
             regex: '/(?:(?:&nbsp;)|\s)+([:!?;])/',
             callback: fn(array $matches) => '&nbsp;'.$matches[1],
         );
