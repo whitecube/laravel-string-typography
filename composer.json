@@ -30,11 +30,11 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/framework": "^9|^10|^11|^12"
+        "laravel/framework": "^9|^10|^11|^12|^13"
     },
     "require-dev": {
-        "orchestra/testbench": "^9.2|^10.0",
-        "pestphp/pest": "^2.34"
+        "orchestra/testbench": "^9.2|^10.0|^11.0",
+        "pestphp/pest": "^2.34|^3.0|^4.0"
     },
     "extra": {
         "laravel": {

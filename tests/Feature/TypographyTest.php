@@ -70,7 +70,7 @@ it('can execute some of the declared rules', function() {
         callback: fn(array $matches) => 'b',
     );
 
-    expect((string) str('...Banana !')->typography(only: ['hellip','unbreakable-punctuation']))
+    expect((string) str('...Banana !')->typography(only: ['hellip','non-breaking-punctuation']))
         ->toBe('&hellip;Banana&nbsp;!');
 
     Typography::remove('a-to-b');
@@ -96,7 +96,7 @@ it('can execute all of the declared rules except some', function() {
         callback: fn(array $matches) => 'b',
     );
 
-    expect((string) str('...Banana !')->typography(except: ['hellip','unbreakable-punctuation']))
+    expect((string) str('...Banana !')->typography(except: ['hellip','non-breaking-punctuation']))
         ->toBe('...Bbnbnb !');
     
     Typography::remove('a-to-b');
